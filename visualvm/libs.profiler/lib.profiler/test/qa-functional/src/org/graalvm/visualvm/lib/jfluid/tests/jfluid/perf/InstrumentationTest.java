@@ -279,7 +279,7 @@ public class InstrumentationTest extends CommonProfilerTestCase implements NbPer
     protected ProfilerEngineSettings initTest(String pathToJar)
                                        throws Exception {
         settings = new ProfilerEngineSettings();
-        settings.setPortNo(5140);
+        settings.setPortNo(5500);
         settings.setSeparateConsole(false);
         settings.setCPUProfilingType(CommonConstants.CPU_INSTR_FULL);
         settings.setInstrScheme(CommonConstants.INSTRSCHEME_TOTAL);

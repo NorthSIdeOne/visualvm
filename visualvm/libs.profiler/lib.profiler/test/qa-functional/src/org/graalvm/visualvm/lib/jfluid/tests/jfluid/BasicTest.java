@@ -56,7 +56,7 @@ public class BasicTest extends CommonProfilerTestCase {
         ProfilerEngineSettings settings;
         settings = new ProfilerEngineSettings();
         setTargetVM(settings);
-        settings.setPortNo(5140);
+        settings.setPortNo(5500);
         settings.setSeparateConsole(false);
         setStatus(STATUS_NONE);
 

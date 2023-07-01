@@ -85,7 +85,7 @@ public class CommonWireIOTestCase extends CommonProfilerTestCase {
 
     //~ Static fields/initializers -----------------------------------------------------------------------------------------------
 
-    protected static int PORT = 5140;
+    protected static int PORT = 5500;
 
     //~ Constructors -------------------------------------------------------------------------------------------------------------
 

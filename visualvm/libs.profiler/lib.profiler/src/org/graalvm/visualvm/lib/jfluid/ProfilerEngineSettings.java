@@ -37,15 +37,16 @@ import java.io.IOException;
 import org.graalvm.visualvm.lib.jfluid.filters.GenericFilter;
 import org.graalvm.visualvm.lib.jfluid.filters.InstrumentationFilter;
 
-
 /**
- * Global profiler session and engine settings, that are used in various parts of the system.
+ * Global profiler session and engine settings, that are used in various parts
+ * of the system.
  *
  * @author Misha Dmitriev
  * @author Ian Formanek
  */
 public final class ProfilerEngineSettings implements CommonConstants, Cloneable {
-    //~ Instance fields ----------------------------------------------------------------------------------------------------------
+    // ~ Instance fields
+    // ----------------------------------------------------------------------------------------------------------
 
     private InstrumentationFilter instrumentationFilter = new InstrumentationFilter();
     private Marker methodMarker = Marker.DEFAULT;
@@ -55,16 +56,19 @@ public final class ProfilerEngineSettings implements CommonConstants, Cloneable 
     private String mainClassName; // the TA main class name
 
     // Target application setup-specific settings
-    private String mainClassPath = ""; // NOI18N           // the classpath for starting TA
-    private String remoteHost = ""; // NOI18N                  // Remote host name in case of remote profiling, "" for local profiling
-    private String targetJDKVersion = Platform.JDK_15_STRING; // the target JVM version string: see Platform.JDK_xx_STRING constants
+    private String mainClassPath = ""; // NOI18N // the classpath for starting TA
+    private String remoteHost = ""; // NOI18N // Remote host name in case of remote profiling, "" for local
+                                    // profiling
+    private String targetJDKVersion = Platform.JDK_15_STRING; // the target JVM version string: see
+                                                              // Platform.JDK_xx_STRING constants
     private String targetJVMExeFile; // the JVM executable to run the TA
     private String targetJVMStartupDirName; // the working directory for TA we are attaching to
     private String workingDir = System.getProperty("user.dir"); // NOI18N // the TA working directory
     private ClientUtils.SourceCodeSelection[] instrumentationRootMethods = new ClientUtils.SourceCodeSelection[0];
     private RuntimeProfilingPoint[] profilingPoints = new RuntimeProfilingPoint[0];
 
-    // THE FOLLOWING DATA IS REGENERATED ON EACH NEW JFLUID RUN AND/OR PROFILING SESSION WITHIN ONE RUN
+    // THE FOLLOWING DATA IS REGENERATED ON EACH NEW JFLUID RUN AND/OR PROFILING
+    // SESSION WITHIN ONE RUN
     private String[] vmClassPaths = new String[3]; // Target VM's java.class.path, java.ext.dirs and sun.boot.class.path
     private boolean absoluteTimerOn = true;
     private boolean dontShowZeroLiveObjAllocPaths = true;
@@ -78,7 +82,8 @@ public final class ProfilerEngineSettings implements CommonConstants, Cloneable 
     private boolean runGCOnGetResultsInMemoryProfiling = false;
     private boolean instrumentObjectInit = false;
 
-    // If false, the exec command is issued so that there is no visible console for the TA
+    // If false, the exec command is issued so that there is no visible console for
+    // the TA
     private boolean separateConsole = true;
     private boolean sortResultsByThreadCPUTime = false;
     private boolean suspendTargetApp = false;
@@ -87,7 +92,8 @@ public final class ProfilerEngineSettings implements CommonConstants, Cloneable 
     private boolean threadsMonitoringEnabled;
     private boolean lockContentionMonitoringEnabled;
     private boolean threadsSamplingEnabled;
-    private int allocStackTraceLimit = -5; // Negative number means full (unlimited) depth actually used, although the limit is preserved
+    private int allocStackTraceLimit = -5; // Negative number means full (unlimited) depth actually used, although the
+                                           // limit is preserved
     private int allocTrackEvery = 10;
     private int architecture; // system architecture 32bit/64bit
     private int codeRegionCPUResBufSize = 1000;
@@ -95,11 +101,12 @@ public final class ProfilerEngineSettings implements CommonConstants, Cloneable 
     private int instrScheme = INSTRSCHEME_LAZY; // See CommonConstants for definitions
     private int nProfiledThreadsLimit = 32;
     private int stackDepthLimit = Integer.MAX_VALUE;
-    private int portNo = 5140;
+    private int portNo = 5500;
     private int samplingInterval = 10;
     private int samplingFrequency = 10;
 
-    //~ Methods ------------------------------------------------------------------------------------------------------------------
+    // ~ Methods
+    // ------------------------------------------------------------------------------------------------------------------
 
     public void setAbsoluteTimerOn(boolean v) {
         absoluteTimerOn = v;
@@ -320,7 +327,7 @@ public final class ProfilerEngineSettings implements CommonConstants, Cloneable 
     public void setInstrumentObjectInit(boolean v) {
         instrumentObjectInit = v;
     }
-    
+
     public void setRuntimeProfilingPoints(RuntimeProfilingPoint[] profilingPoints) {
         this.profilingPoints = profilingPoints;
     }
@@ -424,7 +431,7 @@ public final class ProfilerEngineSettings implements CommonConstants, Cloneable 
     public boolean isThreadsMonitoringEnabled() {
         return threadsMonitoringEnabled;
     }
-    
+
     public void setLockContentionMonitoringEnabled(boolean b) {
         lockContentionMonitoringEnabled = b;
     }
@@ -483,7 +490,8 @@ public final class ProfilerEngineSettings implements CommonConstants, Cloneable 
             clone.instrumentationRootMethods = new ClientUtils.SourceCodeSelection[instrumentationRootMethods.length];
 
             for (int i = 0; i < instrumentationRootMethods.length; i++) {
-                clone.instrumentationRootMethods[i] = (ClientUtils.SourceCodeSelection) instrumentationRootMethods[i].clone();
+                clone.instrumentationRootMethods[i] = (ClientUtils.SourceCodeSelection) instrumentationRootMethods[i]
+                        .clone();
             }
 
             // clone instrumentation filter
@@ -500,7 +508,7 @@ public final class ProfilerEngineSettings implements CommonConstants, Cloneable 
 
         String jFluidNativeLibDirName = jFluidNativeLibFullName.substring(0, jFluidNativeLibFullName.lastIndexOf('/')); // NOI18N
 
-        String checkedPath = ""; // NOI18N   // Needed only for error reporting
+        String checkedPath = ""; // NOI18N // Needed only for error reporting
 
         try {
             File rootDir = MiscUtils.checkDirForName(checkedPath = rootDirName);

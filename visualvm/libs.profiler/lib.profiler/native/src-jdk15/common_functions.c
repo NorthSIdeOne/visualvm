@@ -54,7 +54,7 @@ jlong get_nano_time() {
 void report_usage() {
     fprintf(stderr, "Profiler Agent: -agentpath:<PATH>/profilerinterface should be called with two parameters:\n");
     fprintf(stderr, "Profiler Agent: path to Profiler agent libraries and port number, separated by comma, for example:\n");
-    fprintf(stderr, "Profiler Agent: java -agentpath:/mypath/profilerinterface=/home/me/nb-profiler-server/profiler-ea-libs,5140\n");
+    fprintf(stderr, "Profiler Agent: java -agentpath:/mypath/profilerinterface=/home/me/nb-profiler-server/profiler-ea-libs,5500\n");
 }
 
 static void initializeJVMTI(JavaVM *jvm) {
@@ -138,7 +138,7 @@ JNIEXPORT jint JNICALL Agent_OnLoad(JavaVM *jvm, char *options, void *reserved) 
     }    
 
     /* If it looks like the VM was started not from the tool, but on its own, e.g. like
-    java -agentpath:/blahblah/profilerinterface=/foobar/profiler-ea-libs,5140
+    java -agentpath:/blahblah/profilerinterface=/foobar/profiler-ea-libs,5500
     do some sanity checks for options and then eable the VM init event, so that we can start
     our Java agent when the VM is initialized */
     if (options != NULL && strlen(options) > 0) { /* The spec says no options means options == "", but in reality it's NULL */

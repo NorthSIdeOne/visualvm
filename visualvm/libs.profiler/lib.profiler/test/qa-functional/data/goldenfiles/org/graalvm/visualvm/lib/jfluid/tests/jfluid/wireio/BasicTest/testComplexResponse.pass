@@ -1,4 +1,4 @@
-Server start to listen on port 5140
+Server start to listen on port 5500
  received object org.graalvm.visualvm.lib.jfluid.wireprotocol.CodeRegionCPUResultsResponse CodeRegionCPUResultsResponse, length: 3, CODE_REGION_CPU_RESULTS Ok, yes
  received object org.graalvm.visualvm.lib.jfluid.wireprotocol.ThreadLivenessStatusResponse ThreadLivenessStatusResponse, THREAD_LIVENESS_STATUS Ok, yes
  received object org.graalvm.visualvm.lib.jfluid.wireprotocol.DumpResultsResponse DumpResultsResponse, timeStamp: 200508181215, DUMP_RESULTS Ok, yes

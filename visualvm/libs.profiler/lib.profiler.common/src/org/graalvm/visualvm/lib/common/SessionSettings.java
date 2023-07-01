@@ -70,7 +70,7 @@ public final class SessionSettings {
     private String mainClassPath = ""; //NOI18N
     private String workingDir = System.getProperty("user.dir"); //NOI18N // Only used for Profile, not for Attach
     private int architecture = Platform.ARCH_32;
-    private int portNo = 5140;
+    private int portNo = 5500;
     private String remoteHost = ""; //NOI18N
 
     //~ Constructors -------------------------------------------------------------------------------------------------------------
@@ -247,12 +247,12 @@ public final class SessionSettings {
         }
 
         setRemoteHost(getProperty(props, PROP_REMOTE_HOST, ""));
-        String port = getProperty(props, PROP_PORT_NO, "5140"); //NOI18N
+        String port = getProperty(props, PROP_PORT_NO, "5500"); //NOI18N
 
         try {
             setPortNo(Integer.parseInt(port));
         } catch (NumberFormatException e) {
-            portNo = 5140;
+            portNo = 5500;
             throw new IllegalArgumentException(INCORRECT_PORT_MSG, e);
         }
     }

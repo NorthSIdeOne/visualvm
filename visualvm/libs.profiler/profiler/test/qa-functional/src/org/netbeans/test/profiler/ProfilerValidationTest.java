@@ -162,7 +162,7 @@ public class ProfilerValidationTest extends JellyTestCase {
         tabbedPane.selectPage("Profiler");
         JListOperator categoriesOper = new JListOperator(options);
         // General category
-        assertEquals("Wrong profiling port.", 5140, new JSpinnerOperator(options).getValue());
+        assertEquals("Wrong profiling port.", 5500, new JSpinnerOperator(options).getValue());
         // manage calibration data
         new JButtonOperator(options, "Manage").pushNoBlock();
         NbDialogOperator manageOper = new NbDialogOperator("Manage Calibration data");
