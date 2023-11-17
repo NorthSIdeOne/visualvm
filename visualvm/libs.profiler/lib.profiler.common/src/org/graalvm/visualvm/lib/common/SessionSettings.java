@@ -70,7 +70,7 @@ public final class SessionSettings {
     private String mainClassPath = ""; //NOI18N
     private String workingDir = System.getProperty("user.dir"); //NOI18N // Only used for Profile, not for Attach
     private int architecture = Platform.ARCH_32;
-    private int portNo = 5500;
+    private int portNo = getDefaultProfilerPort();
     private String remoteHost = ""; //NOI18N
 
     //~ Constructors -------------------------------------------------------------------------------------------------------------
@@ -86,6 +86,16 @@ public final class SessionSettings {
         }
 
         jvmArgs = value;
+    }
+
+    public int getDefaultProfilerPort(){
+        String defaultProfilerPortENV = System.getenv("DEFAULT_PROFILER_PORT");
+        try {
+            int defaultProfilerPort = Integer.parseInt(defaultProfilerPortENV);
+            return defaultProfilerPort;
+        } catch (NumberFormatException e) {
+           return 5500;
+        }
     }
 
     public String getJVMArgs() {
@@ -247,14 +257,8 @@ public final class SessionSettings {
         }
 
         setRemoteHost(getProperty(props, PROP_REMOTE_HOST, ""));
-        String port = getProperty(props, PROP_PORT_NO, "5500"); //NOI18N
+        setPortNo(getDefaultProfilerPort());
 
-        try {
-            setPortNo(Integer.parseInt(port));
-        } catch (NumberFormatException e) {
-            portNo = 5500;
-            throw new IllegalArgumentException(INCORRECT_PORT_MSG, e);
-        }
     }
 
     public void store(Map props) {

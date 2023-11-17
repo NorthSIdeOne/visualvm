@@ -141,6 +141,11 @@ public final class AboutAction extends AbstractAction {
             sb.append("<td valign=\"top\" nowrap>" + "<b>User directory: </b>" + "</td>"); // NOI18N
             sb.append("<td valign=\"top\" nowrap>" + getUserDir() + "</td>"); // NOI18N
             sb.append("</tr>"); // NOI18N
+
+            sb.append("<tr>"); // NOI18N
+            sb.append("<td valign=\"top\" nowrap>" + "<b>Profiler Port: </b>" + "</td>"); // NOI18N
+            sb.append("<td valign=\"top\" nowrap>" + AboutAction.getDefaultProfilerPort() + "</td>"); // NOI18N
+            sb.append("</tr>"); // NOI18N
             
             sb.append("<tr>"); // NOI18N
             sb.append("<td valign=\"top\" nowrap>" + "<b>Cache directory: </b>" + "</td>"); // NOI18N
@@ -168,6 +173,15 @@ public final class AboutAction extends AbstractAction {
         String osArch = systemProperties.getProperty("os.arch", "&lt;not available&gt;");   // NOI18N
         String sunArch = systemProperties.getProperty("sun.arch.data.model", "?") + "bit";  // NOI18N
         return osName + " (" + osVersion + ") " + ("unknown".equals(patchLevel) ? "" : patchLevel) + ", " + osArch + " " + sunArch; // NOI18N
+    }
+
+    public static int getDefaultProfilerPort(){
+        String defaultProfilerPortENV = System.getenv("DEFAULT_PROFILER_PORT");
+        try {
+            return Integer.parseInt(defaultProfilerPortENV);
+        } catch (NumberFormatException e) {
+            return 5500;
+        }
     }
     
     private static String getJavaInfo() {

@@ -381,7 +381,7 @@ public class ProfilerServer extends Thread implements CommonConstants {
 
     // This data is needed to avoid passing parameters to doActivate() which may cause problems in attach by pid mode on Windows.
     private static String _fullJFluidPath;
-    private static int _portNo = 5500;
+    private static int _portNo = ProfilerServer.getDefaultProfilerPort();
     private static int _activateCode;
     private static int _timeOut = 0;
     private static Response lastResponse;
@@ -419,6 +419,15 @@ public class ProfilerServer extends Thread implements CommonConstants {
         }
 
         setDaemon(true);
+    }
+    public static int getDefaultProfilerPort(){
+        String defaultProfilerPortENV = System.getenv("DEFAULT_PROFILER_PORT");
+        try {
+            int defaultProfilerPort = Integer.parseInt(defaultProfilerPortENV);
+            return defaultProfilerPort;
+        } catch (NumberFormatException e) {
+            return 5500;
+        }
     }
 
     //~ Methods ------------------------------------------------------------------------------------------------------------------
@@ -491,7 +500,7 @@ public class ProfilerServer extends Thread implements CommonConstants {
         }
         try {
             _fullJFluidPath = fullJFluidPath;
-            _portNo = 5500;
+            _portNo = ProfilerServer.getDefaultProfilerPort();
             _timeOut = timeOut;
             _activateCode = activateCode;
 
@@ -539,7 +548,7 @@ public class ProfilerServer extends Thread implements CommonConstants {
         int portNo = 0;
 
         try {
-            portNo = 5500;
+            portNo = ProfilerServer.getDefaultProfilerPort();
         } catch (NumberFormatException e) {
             internalError("illegal port number specified: " + args[1]); // NOI18N
         }
@@ -562,7 +571,7 @@ public class ProfilerServer extends Thread implements CommonConstants {
         System.arraycopy(args, idx + 1, targetAppArgs, 0, len);
 
         // Start the communication thread and wait for it to establish connection with client
-        profilerServer = new ProfilerServer(5500, true, timeout);
+        profilerServer = new ProfilerServer(ProfilerServer.getDefaultProfilerPort(), true, timeout);
         profilerServer.start();
 
         while (!(connectionOpen || connectionFailed)) {
@@ -881,7 +890,7 @@ public class ProfilerServer extends Thread implements CommonConstants {
         initInternals();
 
         // Start the communication thread and wait for it to establish connection with client
-        profilerServer = new ProfilerServer(5500, activateCode == ATTACH_DYNAMIC, _timeOut);
+        profilerServer = new ProfilerServer(ProfilerServer.getDefaultProfilerPort(), activateCode == ATTACH_DYNAMIC, _timeOut);
         profilerServer.start();
 
         while (!(connectionOpen || connectionFailed)) {

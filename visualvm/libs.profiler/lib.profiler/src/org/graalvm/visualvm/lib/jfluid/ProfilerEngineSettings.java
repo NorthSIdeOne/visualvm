@@ -101,7 +101,7 @@ public final class ProfilerEngineSettings implements CommonConstants, Cloneable 
     private int instrScheme = INSTRSCHEME_LAZY; // See CommonConstants for definitions
     private int nProfiledThreadsLimit = 32;
     private int stackDepthLimit = Integer.MAX_VALUE;
-    private int portNo = 5500;
+    private int portNo = getDefaultProfilerPort();
     private int samplingInterval = 10;
     private int samplingFrequency = 10;
 
@@ -130,6 +130,16 @@ public final class ProfilerEngineSettings implements CommonConstants, Cloneable 
         }
 
         allocTrackEvery = interval;
+    }
+
+    public int getDefaultProfilerPort(){
+        String defaultProfilerPortENV = System.getenv("DEFAULT_PROFILER_PORT");
+        try {
+            int defaultProfilerPort = Integer.parseInt(defaultProfilerPortENV);
+            return defaultProfilerPort;
+        } catch (NumberFormatException e) {
+            return 5500;
+        }
     }
 
     public int getAllocTrackEvery() {

@@ -144,7 +144,7 @@ public final class ProfilerIDESettings implements GlobalProfilingSettings {
     private final int CALIBRATION_PORT_NO_DEFAULT = -1;
     private final int CPU_TASK_DEFAULT = CPU_ENTIRE_APP;
     private final int OOME_DETECTION_MODE_DEFAULT = OOME_DETECTION_PROJECTDIR;
-    private final int PORT_NO_DEFAULT = 5500;
+    private final int PORT_NO_DEFAULT = ProfilerIDESettings.getDefaultProfilerPort();
     private final int TO_BEHAVIOR_DEFAULT = OPEN_MONITORING;
     private final int TRACK_EVERY_DEFAULT = 10;
     private final int TV_BEHAVIOR_DEFAULT = OPEN_ALWAYS;
@@ -174,6 +174,16 @@ public final class ProfilerIDESettings implements GlobalProfilingSettings {
     public ProfilingSettings getDefaultProfilingSettings() {
         if (pSettings == null) pSettings = loadProfilingSettings();
         return pSettings;
+    }
+
+    public static int getDefaultProfilerPort(){
+        String defaultProfilerPortENV = System.getenv("DEFAULT_PROFILER_PORT");
+        try {
+            int defaultProfilerPort = Integer.parseInt(defaultProfilerPortENV);
+            return defaultProfilerPort;
+        } catch (NumberFormatException e) {
+            return 5500;
+        }
     }
     
     public void saveDefaultProfilingSettings() {
@@ -571,7 +581,7 @@ public final class ProfilerIDESettings implements GlobalProfilingSettings {
         "ProfilerIDESettings_Name=Profiler Settings"
     })
     public String displayName() {
-        return Bundle.ProfilerIDESettings_Name();
+        return org.graalvm.visualvm.lib.profiler.api.Bundle.ProfilerIDESettings_Name();
     }
 
     private Map<String, String> getDNSAMap() {
